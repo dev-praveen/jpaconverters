@@ -5,6 +5,7 @@ import org.springframework.util.CollectionUtils;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
+import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
@@ -14,16 +15,14 @@ public class PlanetConverter implements AttributeConverter<List<Planet>, String>
   @Override
   public String convertToDatabaseColumn(List<Planet> planets) {
     if (CollectionUtils.isEmpty(planets)) return "";
-    return String.join(",", planets.toString());
+    return planets.stream().map(Enum::name).collect(Collectors.joining(","));
   }
 
   @Override
   public List<Planet> convertToEntityAttribute(String dbData) {
 
-    final var dbDataWithValues = dbData.substring(1, dbData.length() - 1);
+    if (dbData.isEmpty()) return Collections.emptyList();
 
-    return Stream.of(dbDataWithValues.split(", \\s+"))
-        .map(Planet::valueOf)
-        .collect(Collectors.toList());
+    return Stream.of(dbData.split(",")).map(Planet::valueOf).collect(Collectors.toList());
   }
 }
