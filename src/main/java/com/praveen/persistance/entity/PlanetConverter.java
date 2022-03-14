@@ -20,7 +20,9 @@ public class PlanetConverter implements AttributeConverter<List<Planet>, String>
   @Override
   public List<Planet> convertToEntityAttribute(String dbData) {
 
-    return Stream.of(dbData.split(","))
+    final var dbDataWithValues = dbData.substring(1, dbData.length() - 1);
+
+    return Stream.of(dbDataWithValues.split(", \\s+"))
         .map(Planet::valueOf)
         .collect(Collectors.toList());
   }
