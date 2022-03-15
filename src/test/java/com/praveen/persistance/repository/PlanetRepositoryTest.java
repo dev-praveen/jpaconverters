@@ -22,14 +22,14 @@ class PlanetRepositoryTest {
 
     final var closerToSun =
         PlanetEntity.builder()
-            .planets(List.of(Planet.EARTH))
+            .planets(List.of(Planet.EARTH, Planet.MARS))
             .description("Middle of the planetary")
             .build();
 
     final var awayFromSun =
         PlanetEntity.builder()
-            .planets(List.of(Planet.JUPITER))
-            .description("High mass planet")
+            .planets(List.of(Planet.JUPITER, Planet.SATURN))
+            .description("High mass planets")
             .build();
 
     planetRepository.saveAll(List.of(closerToSun, awayFromSun));
@@ -51,5 +51,12 @@ class PlanetRepositoryTest {
                                 + " and it's Zodiac sign "
                                 + planet.getZodiacSign())));
     assertThat(planetEntities).isNotEmpty();
+  }
+
+  @Test
+  @Disabled("Don't execute this test as it will delete records from database.")
+  void deleteAllPlanets() {
+
+    planetRepository.deleteAll();
   }
 }

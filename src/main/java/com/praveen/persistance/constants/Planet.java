@@ -3,6 +3,8 @@ package com.praveen.persistance.constants;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import java.util.stream.Stream;
+
 @Getter
 @RequiredArgsConstructor
 public enum Planet {
@@ -16,4 +18,12 @@ public enum Planet {
   NEPTUNE("aquarius");
 
   private final String zodiacSign;
+
+  public static Planet getPlanetForZodiacSign(String zodiacSign) {
+
+    return Stream.of(values())
+        .filter(planet -> planet.getZodiacSign().equals(zodiacSign))
+        .findFirst()
+        .orElse(null);
+  }
 }

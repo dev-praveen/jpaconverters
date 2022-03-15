@@ -15,14 +15,16 @@ public class PlanetConverter implements AttributeConverter<List<Planet>, String>
   @Override
   public String convertToDatabaseColumn(List<Planet> planets) {
     if (CollectionUtils.isEmpty(planets)) return "";
-    return planets.stream().map(Enum::name).collect(Collectors.joining(","));
+    return planets.stream().map(Planet::getZodiacSign).collect(Collectors.joining(","));
   }
 
   @Override
   public List<Planet> convertToEntityAttribute(String dbData) {
 
-    if (dbData.isEmpty()) return Collections.emptyList();
+    if (dbData == null || dbData.isBlank()) return Collections.emptyList();
 
-    return Stream.of(dbData.split(",")).map(Planet::valueOf).collect(Collectors.toList());
+    return Stream.of(dbData.split(","))
+        .map(Planet::getPlanetForZodiacSign)
+        .collect(Collectors.toList());
   }
 }
