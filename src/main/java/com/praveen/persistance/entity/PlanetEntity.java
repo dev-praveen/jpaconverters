@@ -18,7 +18,7 @@ import java.util.List;
 public class PlanetEntity {
 
   @Id
-  @GeneratedValue(strategy = GenerationType.SEQUENCE)
+  @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "PLANET_SEQUENCE")
   @SequenceGenerator(name = "PLANET_SEQUENCE", sequenceName = "PLANET_SEQUENCE", allocationSize = 1)
   private Long id;
 
