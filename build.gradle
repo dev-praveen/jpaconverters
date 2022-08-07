@@ -1,7 +1,16 @@
 plugins {
+    id 'com.google.cloud.tools.jib' version '3.2.1'
     id 'org.springframework.boot' version '2.6.4'
     id 'io.spring.dependency-management' version '1.0.11.RELEASE'
     id 'java'
+}
+
+jib.to {
+    image = 'dockerpraveen123/jpa-converters-app'
+    auth {
+        username = 'dockerpraveen123'
+        password = 'password'
+    }
 }
 
 group = 'com.praveen.persistance'
@@ -21,7 +30,7 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.boot:spring-boot-starter-web'
-    implementation 'org.postgresql:postgresql:42.3.3'
+    implementation 'org.postgresql:postgresql:42.3.6'
     compileOnly 'org.projectlombok:lombok'
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
